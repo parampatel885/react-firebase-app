@@ -1,0 +1,193 @@
+.team-details-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #11998e 0%, #38a1db 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.team-details-card {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+  padding: 0 0 32px 0;
+  max-width: 480px;
+  width: 100%;
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.team-header-details {
+  width: 100%;
+  background: linear-gradient(45deg, #11998e, #38a1db);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 32px 32px 18px 32px;
+  color: #fff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-bottom: 0;
+}
+
+.team-sport-icon-large {
+  font-size: 3.5rem;
+  background: linear-gradient(45deg, #fff, #b2e6e0);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(56,161,219,0.10);
+}
+
+.team-header-details h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #fff;
+}
+
+.team-sport-label {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 3px 14px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+.team-info-section {
+  width: 100%;
+  padding: 24px 32px 0 32px;
+  box-sizing: border-box;
+}
+
+.team-info-section p {
+  color: #333;
+  margin: 8px 0;
+  font-size: 1.08rem;
+}
+
+.team-members-section {
+  margin: 18px 0 10px 0;
+}
+
+.team-members-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.team-member-pill {
+  background: linear-gradient(45deg, #b2e6e0, #38a1db);
+  color: #5a5555;
+  font-weight: 600;
+  border-radius: 16px;
+  padding: 5px 14px;
+  font-size: 0.98rem;
+  box-shadow: 0 1px 4px rgba(56,161,219,0.08);
+}
+
+.team-creator {
+  margin-top: 10px;
+  color: #11998e;
+  font-weight: 500;
+}
+
+.back-btn {
+  align-self: flex-start;
+  background: rgba(56, 161, 219, 0.13);
+  border: none;
+  color: #11998e;
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin: 18px 0 0 18px;
+  transition: background 0.2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.back-btn:hover {
+  background: rgba(56, 161, 219, 0.25);
+}
+
+.join-form {
+  width: 100%;
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 32px;
+  box-sizing: border-box;
+}
+
+.join-form label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #11998e;
+}
+
+.join-form input[type="text"] {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1.5px solid #b2e6e0;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.join-form button {
+  background: linear-gradient(45deg, #11998e, #38a1db);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.join-form button:disabled {
+  background: #b2e6e0;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+.join-success {
+  color: #11998e;
+  font-weight: 600;
+  margin-top: 18px;
+  font-size: 1.1rem;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .team-details-card {
+    padding: 0 0 18px 0;
+    max-width: 98vw;
+  }
+  .team-header-details, .team-info-section, .join-form {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .back-btn {
+    margin-left: 4px;
+    margin-top: 4px;
+  }
+} 

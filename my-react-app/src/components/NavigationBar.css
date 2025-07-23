@@ -1,0 +1,86 @@
+.navbar {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 40px;
+  border-bottom: 2px solid #e1e5e9;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 2px;
+  user-select: none;
+  padding: 6px 18px;
+  border-radius: 10px;
+  border: 2px solid #764ba2;
+  background: linear-gradient(45deg, #f8fafc, #e9e4f0);
+  margin-right: 30px;
+  transition: box-shadow 0.2s, border 0.2s;
+}
+
+.logo-gradient {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-logo:hover {
+  box-shadow: 0 2px 12px rgba(102, 126, 234, 0.15);
+  border: 2px solid #667eea;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #764ba2;
+  cursor: pointer;
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+
+.navbar-links li:hover {
+  background: linear-gradient(45deg, #667eea22, #764ba222);
+  color: #333;
+  border: 2px solid #667eea;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 10px;
+  }
+  .navbar-logo {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+  .navbar-links {
+    gap: 10px;
+    width: 100%;
+  }
+  .navbar-links li {
+    width: 100%;
+    text-align: left;
+    padding: 10px 10px;
+  }
+} 
