@@ -105,7 +105,7 @@ const TeamDetails = ({ team, onNavigate, user }) => {
   };
 
   const handleDelete = async () => {
-    if (!user || !isCreator || isMember) return;
+    if (!user || !isCreator) return;
     try {
       const teamRef = doc(db, 'teams', currentTeam.id);
       await deleteDoc(teamRef);
@@ -120,9 +120,9 @@ const TeamDetails = ({ team, onNavigate, user }) => {
     <div className="team-details-page">
       <div className="team-details-card">
         <button
-          className="back-btn"
+          className="back-btn-tl"
           onClick={() => onNavigate('teams')}
-          style={{ marginBottom: 16, background: '#1976d2', color: '#fff', border: 'none', borderRadius: 20, padding: '8px 24px', fontWeight: 600, fontSize: '1rem', cursor: 'pointer' }}
+          
         >
           &larr; Back to Teams List
         </button>
