@@ -4,6 +4,7 @@ import { auth, googleProvider, db } from '../config/firebase-config';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -106,7 +107,8 @@ const LoginPage = ({ onLogin }) => {
           {loading ? (isRegister ? 'Registering...' : 'Logging in...') : (isRegister ? 'Register' : 'Login')}
         </button>
         <button type="button" className="google-btn" onClick={handleGoogleSignIn} disabled={loading}>
-          {loading ? 'Please wait...' : 'Sign in with Google'}
+          <FcGoogle />
+          {loading ? 'Please wait...' : '  Sign in with Google'}
         </button>
         <div className="toggle-auth-mode">
           {isRegister ? (
