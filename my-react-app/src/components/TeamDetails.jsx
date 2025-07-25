@@ -43,12 +43,18 @@ const TeamDetails = ({ team, onNavigate, user }) => {
       if (!currentTeam || !currentTeam.members) return;
       const names = await Promise.all(
         currentTeam.members.map(async (uid) => {
+          console.log('Fetching user:', uid);
           try {
             const userDoc = await getDoc(doc(db, 'users', uid));
             if (userDoc.exists()) {
+              console.log('User found:', userDoc.data());
               return userDoc.data().displayName || uid;
+            } else {
+              console.log('User not found for UID:', uid);
             }
-          } catch {}
+          } catch (err) {
+            console.log('Error fetching user for UID:', uid, err);
+          }
           return uid;
         })
       );
