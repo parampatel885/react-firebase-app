@@ -76,6 +76,7 @@ const CreateTeam = ({ onNavigate, onAddTeam, user }) => {
               value={formData.teamName}
               onChange={handleChange}
               className={errors.teamName ? 'error' : ''}
+              placeholder="Enter team name"
             />
             {errors.teamName && <span className="error-message">{errors.teamName}</span>}
           </div>
@@ -87,6 +88,7 @@ const CreateTeam = ({ onNavigate, onAddTeam, user }) => {
               value={formData.sport}
               onChange={handleChange}
               className={errors.sport ? 'error' : ''}
+              placeholder="Select a sport"
             >
               <option value="">Select a sport</option>
               {sports.map(sport => (
@@ -104,6 +106,7 @@ const CreateTeam = ({ onNavigate, onAddTeam, user }) => {
               value={formData.location}
               onChange={handleChange}
               className={errors.location ? 'error' : ''}
+              placeholder="Enter location"
             />
             {errors.location && <span className="error-message">{errors.location}</span>}
           </div>
@@ -116,6 +119,7 @@ const CreateTeam = ({ onNavigate, onAddTeam, user }) => {
               onChange={handleChange}
               className={errors.description ? 'error' : ''}
               rows="4"
+              placeholder="Enter team description"
             />
             {errors.description && <span className="error-message">{errors.description}</span>}
           </div>
@@ -129,6 +133,7 @@ const CreateTeam = ({ onNavigate, onAddTeam, user }) => {
               max="100"
               value={formData.maxMembers}
               onChange={handleChange}
+              placeholder="Enter maximum team members"
             />
           </div>
           <div className="form-actions">
