@@ -1,6 +1,7 @@
 import React from 'react';
 import './HomePage.css';
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 
 const HomePage = ({ onNavigate, user }) => {
   const navigate = useNavigate();
@@ -70,6 +71,7 @@ const HomePage = ({ onNavigate, user }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
