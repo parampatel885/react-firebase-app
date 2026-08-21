@@ -1,5 +1,16 @@
 {
-  "dependencies": {
-    "react-router-dom": "^7.6.3"
+  "name": "playpal",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "dev:web": "npm run dev -w web",
+    "dev:api": "npm run dev -w api",
+    "build": "npm run build -w web",
+    "build:web": "npm run build -w web",
+    "build:api": "npm run build -w api",
+    "lint": "npm run lint -w web"
   }
 }

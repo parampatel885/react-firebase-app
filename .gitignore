@@ -1,0 +1,17 @@
+node_modules
+dist
+.next
+*.log
+.env
+.env.*
+!.env.example
+
+# Firebase
+.firebase
+*-debug.log
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
