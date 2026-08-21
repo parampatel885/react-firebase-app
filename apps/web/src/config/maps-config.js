@@ -1,5 +1,5 @@
 // Google Maps API Configuration
-export const GOOGLE_MAPS_API_KEY = 'AIzaSyB8IDZfhnpsZNh-SENJYWXLQKlkrmifl_4';
+export const GOOGLE_MAPS_API_KEY = 'YOUR_GOOGLE_MAP_API';
 
 // Default location coordinates (New York City)
 export const DEFAULT_LOCATION = {
