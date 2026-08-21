@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
-import { loginWithFirebase } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import {
@@ -20,24 +19,8 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { loginWithToken } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const redirectAfterAuth = async (result, firebaseUser) => {
-    await loginWithToken(result.token, result.user);
-    const redirectTo = location.state?.from || '/teams';
-    if (firebaseUser && !hasPasswordProvider(firebaseUser)) {
-      navigate('/account', { replace: true, state: { from: redirectTo } });
-      return;
-    }
-    navigate(redirectTo, { replace: true });
-  };
-
-  const exchangeFirebaseSession = async (firebaseUser) => {
-    const idToken = await firebaseUser.getIdToken();
-    return loginWithFirebase(idToken);
-  };
 
   const handleAuth = async (e) => {
     e.preventDefault();
@@ -52,8 +35,12 @@ const LoginPage = () => {
         await updateProfile(credential.user, { displayName: name.trim() });
       }
 
-      const result = await exchangeFirebaseSession(credential.user);
-      await redirectAfterAuth(result, credential.user);
+      const redirectTo = location.state?.from || '/teams';
+      if (credential.user && !hasPasswordProvider(credential.user)) {
+        navigate('/account', { replace: true, state: { from: redirectTo } });
+        return;
+      }
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(firebaseAuthMessage(err));
     } finally {
@@ -66,8 +53,12 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const credential = await signInWithPopup(auth, googleProvider);
-      const result = await exchangeFirebaseSession(credential.user);
-      await redirectAfterAuth(result, credential.user);
+      const redirectTo = location.state?.from || '/teams';
+      if (credential.user && !hasPasswordProvider(credential.user)) {
+        navigate('/account', { replace: true, state: { from: redirectTo } });
+        return;
+      }
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
         return;

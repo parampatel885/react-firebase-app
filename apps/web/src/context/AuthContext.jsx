@@ -1,21 +1,10 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
-import { getMe, clearToken, setToken, getToken, loginWithFirebase } from '../lib/api';
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth, db } from '../config/firebase-config';
 import { hasPasswordProvider } from '../lib/firebaseAuthErrors';
 
 const AuthContext = createContext(null);
-const TOKEN_REFRESH_MS = 20 * 60 * 1000;
-
-function waitForFirebaseAuth() {
-  return new Promise((resolve) => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
-      unsub();
-      resolve(firebaseUser);
-    });
-  });
-}
 
 async function syncUserToFirestore(user) {
   if (!user?.id || !user.email) return;
@@ -52,95 +41,35 @@ export function AuthProvider({ children }) {
     setHasPassword(true);
   }, []);
 
-  const restoreSession = useCallback(async () => {
-    const firebaseUser = await waitForFirebaseAuth();
-
-    if (firebaseUser) {
-      try {
-        const idToken = await firebaseUser.getIdToken();
-        const { token, user: profile } = await loginWithFirebase(idToken);
-        setToken(token);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const profile = {
+          id: firebaseUser.uid,
+          email: firebaseUser.email,
+          displayName: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User',
+        };
         setUser(profile);
         setHasPassword(hasPasswordProvider(firebaseUser));
         await syncUserToFirestore(profile);
-        setLoading(false);
-        return;
-      } catch {
-        /* fall back to stored JWT */
+      } else {
+        setUser(null);
+        setHasPassword(false);
       }
-    }
-
-    if (!getToken()) {
       setLoading(false);
-      return;
-    }
+    });
 
-    try {
-      const { user: profile } = await getMe();
-      setUser(profile);
-      refreshProviders();
-    } catch {
-      clearToken();
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
+    return () => unsubscribe();
   }, []);
-
-  useEffect(() => {
-    restoreSession();
-  }, [restoreSession]);
-
-  const refreshSession = useCallback(async () => {
-    const firebaseUser = auth.currentUser;
-    if (!firebaseUser) return;
-
-    try {
-      const idToken = await firebaseUser.getIdToken(true);
-      const { token, user: profile } = await loginWithFirebase(idToken);
-      setToken(token);
-      setUser(profile);
-    } catch (err) {
-      console.warn('Could not refresh session:', err.message);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!user) return undefined;
-
-    const timer = setInterval(() => {
-      refreshSession();
-    }, TOKEN_REFRESH_MS);
-
-    const onVisible = () => {
-      if (document.visibilityState === 'visible') {
-        refreshSession();
-      }
-    };
-    document.addEventListener('visibilitychange', onVisible);
-
-    return () => {
-      clearInterval(timer);
-      document.removeEventListener('visibilitychange', onVisible);
-    };
-  }, [user, refreshSession]);
-
-  const loginWithToken = async (token, profile) => {
-    setToken(token);
-    setUser(profile);
-    refreshProviders();
-    await syncUserToFirestore(profile);
-  };
 
   const logout = () => {
-    clearToken();
     setUser(null);
     setHasPassword(false);
     signOut(auth).catch(() => {});
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, hasPassword, refreshProviders, markHasPassword, loginWithToken, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, hasPassword, refreshProviders, markHasPassword, logout }}>
       {children}
     </AuthContext.Provider>
   );
